@@ -5,7 +5,7 @@ public class MHUD_BCD_Nhom_JFrame extends javax.swing.JFrame {
     public MHUD_BCD_Nhom_JFrame() {
         initComponents();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -47,6 +47,11 @@ public class MHUD_BCD_Nhom_JFrame extends javax.swing.JFrame {
         txtKey3.setText("twcdzfghijolmnkpqrsauvbxye");
 
         btnDecryption.setText("Decryption");
+        btnDecryption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDecryptionActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Key");
 
@@ -111,9 +116,54 @@ public class MHUD_BCD_Nhom_JFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtInputActionPerformed
 
+    public String mahoa(String input){
+        String key1 = txtKey1.getText();
+        String key2 = txtKey2.getText();
+        String s = "";
+        //1 ký tự input là vị trí thứ mấy trong key2 -> index đó tương ứng char trong key1
+        for(int i=0;i<input.length();i++){
+            if(input.charAt(i)==' ')
+                s += " ";
+            else
+            {
+                int index2 = key2.indexOf(Character.toString(input.charAt(i)));
+                String c1 = Character.toString(key1.charAt(index2));
+                s += c1;                   
+            }
+        }
+        return s;
+    }
+        
     private void btnEncryptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncryptionActionPerformed
-
+        String input = txtInput.getText();
+        input = input.toLowerCase();
+        String s = mahoa(input);
+        txtOutput.setText(s);
     }//GEN-LAST:event_btnEncryptionActionPerformed
+    
+    private String giaima(String input) {
+        String key1 = txtKey1.getText();
+        String key2 = txtKey2.getText();
+        String s = "";
+        for(int i=0;i<input.length();i++){
+            if(input.charAt(i)==' ')
+                s += " ";
+            else
+            {
+                int index2 = key1.indexOf(Character.toString(input.charAt(i)));
+                String c1 = Character.toString(key2.charAt(index2));
+                s += c1;                   
+            }
+        }
+        return s;
+    }
+    
+    private void btnDecryptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecryptionActionPerformed
+        String input = txtInput.getText();
+        input = input.toLowerCase();
+        String s = giaima(input);
+        txtOutput.setText(s);
+    }//GEN-LAST:event_btnDecryptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,4 +211,6 @@ public class MHUD_BCD_Nhom_JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtKey3;
     private javax.swing.JTextField txtOutput;
     // End of variables declaration//GEN-END:variables
+
+
 }

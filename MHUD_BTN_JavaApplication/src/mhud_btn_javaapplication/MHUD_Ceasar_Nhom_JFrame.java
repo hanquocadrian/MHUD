@@ -115,7 +115,7 @@ public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
         for(int i = 0;i<str1.length();i++)
             if(str1.charAt(i) != ' ')
               C += (char) ('A' + (str1.charAt(i) - 'A' + Integer.parseInt(txtKey1.getText())) % 26);
-        else
+            else
               C += ' ';
         return C;
     }
