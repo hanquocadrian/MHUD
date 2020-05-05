@@ -8,7 +8,9 @@ package mhud_btn_javaapplication;
 import javax.swing.JOptionPane;
 
 public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
-
+    
+    public static String strAnphabelt ="abcdefghijklmnopqrstuvwxyz";
+    
     public MHUD_Ceasar_Nhom_JFrame() {
         initComponents();
     }
@@ -54,6 +56,11 @@ public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
         txtKey2.setText("Num");
 
         btnDecryption.setText("Decryption");
+        btnDecryption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDecryptionActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Key");
 
@@ -110,11 +117,15 @@ public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
     
     public String MaHoaChuoi(String str1){
         String C="";
-        str1 = str1.toUpperCase();//Chuyển thành chuổi in hoa
+        int key = Integer.parseInt(txtKey1.getText());
+        str1 = str1.toLowerCase();//Chuyển str1 thành chuổi thường
 
         for(int i = 0;i<str1.length();i++)
             if(str1.charAt(i) != ' ')
-              C += (char) ('A' + (str1.charAt(i) - 'A' + Integer.parseInt(txtKey1.getText())) % 26);
+            {
+                //tìm index ký tự P sau đó + key % 26 => số đó là index của từ P được mã hóa
+                C+= strAnphabelt.charAt((strAnphabelt.indexOf(Character.toString(str1.charAt(i)))+key)%26);
+            }
             else
               C += ' ';
         return C;
@@ -125,11 +136,42 @@ public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInputActionPerformed
 
     private void btnEncryptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncryptionActionPerformed
+        //Lấy data
         String str;
         str = txtInput.getText();
+        //Mã hóa nó và xuất
         String result = MaHoaChuoi(str);
         txtOutput.setText(result);
+        //Đồng bộ key 1 vs 2
+        txtKey2.setText(txtKey1.getText());
     }//GEN-LAST:event_btnEncryptionActionPerformed
+    
+    private String GiaiMaChuoi(String str) {
+        String P="";
+        int key = Integer.parseInt(txtKey1.getText());
+        str = str.toLowerCase();//Chuyển str1 thành chuổi thường
+
+        for(int i = 0;i<str.length();i++)
+            if(str.charAt(i) != ' ')
+            {
+                //tìm index ký tự C sau đó + key % 26 => số đó là index của từ C được giải mã
+                P+= strAnphabelt.charAt((strAnphabelt.indexOf(Character.toString(str.charAt(i)))-key)%26);
+            }
+            else
+              P += ' ';
+        return P;
+    }
+    
+    private void btnDecryptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDecryptionActionPerformed
+        //Lấy data
+        String str;
+        str = txtInput.getText();
+        //Mã hóa nó và xuất
+        String result = GiaiMaChuoi(str);
+        txtOutput.setText(result);
+        //Đồng bộ key 2 vs 1
+        txtKey1.setText(txtKey2.getText());
+    }//GEN-LAST:event_btnDecryptionActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,4 +219,6 @@ public class MHUD_Ceasar_Nhom_JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField txtKey2;
     private javax.swing.JTextField txtOutput;
     // End of variables declaration//GEN-END:variables
+
+
 }

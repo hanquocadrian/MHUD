@@ -145,6 +145,7 @@ public class MHUD_BCD_Nhom_JFrame extends javax.swing.JFrame {
         String key1 = txtKey1.getText();
         String key2 = txtKey2.getText();
         String s = "";
+        //1 ký tự input là vị trí thứ mấy trong key1 -> index đó tương ứng char trong key2
         for(int i=0;i<input.length();i++){
             if(input.charAt(i)==' ')
                 s += " ";
